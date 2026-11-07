@@ -2,7 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- user-scalable=no / maximum-scale：禁掉移动端双指放大与双击放大。
+         iOS Safari 10+ 会故意忽略这两个值，那边靠 CSS touch-action 与
+         src/lib/disableZoom.js 里的 gesture* 事件兜底 -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <meta
       name="description"
       content="MaterialLab 物研社 — Custom keycap IC/GB portfolio. Design, sampling, group buys and vendors."
@@ -18,12 +24,12 @@
     />
 
     <title>MaterialLab — Custom Keycaps</title>
-    <script type="module" crossorigin src="/assets/index-eNu1SlfG.js"></script>
+    <script type="module" crossorigin src="/assets/index-BAChKSEN.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-B1ZuJMKz.js">
     <link rel="modulepreload" crossorigin href="/assets/three-B-av-PLa.js">
     <link rel="modulepreload" crossorigin href="/assets/r3f-C1OTyX9r.js">
     <link rel="modulepreload" crossorigin href="/assets/gsap-5cMSYASE.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-BK8m48IN.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-HzNOAsMI.css">
   </head>
   <body>
     <div id="root"></div>
