@@ -16,17 +16,44 @@
     <meta name="theme-color" content="#e8e5dc" />
     <link rel="icon" type="image/svg+xml" href="./logo.svg" />
 
-    <!-- 字体已全量自托管（public/fonts/ + src/styles/fonts.css）：
-         Google Fonts CDN 国内直连不可达，走 CDN 会静默回退系统字体。
-         Archivo / Fraunces / Space Mono 均已本地化，不再依赖任何外网字体。 -->
+    <!-- 字体：自托管 woff2 优先（src/styles/fonts.css），Google Fonts CDN 补充。
+         --font-* 的首项都是 "XXX Local"，CDN 注入的裸族名排第二，只在本地文件
+         加载失败时补位。裸族名不能打头：CDN 样式表不可达（国内直连常见）时
+         "Archivo" 没有 @font-face 兜底，Windows 会把它模糊匹配到系统安装的
+         "Archivo Black" —— 正文 / spec 值变成超粗黑体，且链首命中后本地字体
+         永远轮不到。CDN 通 / 不通都不该改变字形，所以三套统一本地优先。
+         CDN 样式表仍用 media="print" + onload 异步加载（普通 rel=stylesheet
+         会阻塞渲染），3s 不通就移除 link；它不影响首屏，只作补位。
+         本地族名刻意加 Local 后缀，避免与 CDN 注入的同名 @font-face 合并匹配。 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      // 3s 内 CDN 样式表没加载成功就放弃：移除 link 会取消那条 pending 请求，
+      // 否则它会一直吊住 window.load / document.fonts.ready —— 开屏进度里的
+      // load 权重永远不满，得等 SplashBadge 的 24s 硬收尾。
+      // 放弃后页面继续用 --font-* 首项的 "XXX Local" 渲染（本来就是本地字体，
+      // 字形不变），不会落到系统字体。
+      window.__fontCdnTimer = window.setTimeout(function () {
+        var l = document.getElementById('font-cdn')
+        if (l && l.media !== 'all') l.remove()
+      }, 3000)
+    </script>
+    <link
+      id="font-cdn"
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&amp;family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&amp;family=Space+Mono:wght@400;700&amp;display=swap"
+      media="print"
+      onload="this.media='all'; clearTimeout(window.__fontCdnTimer)"
+      onerror="clearTimeout(window.__fontCdnTimer); this.remove()"
+    />
 
     <title>MaterialLab — Custom Keycaps</title>
-    <script type="module" crossorigin src="/assets/index-Cn-j8bM_.js"></script>
+    <script type="module" crossorigin src="/assets/index-viFQbQCs.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-iC4IYFMd.js">
     <link rel="modulepreload" crossorigin href="/assets/three-R6l45TXr.js">
     <link rel="modulepreload" crossorigin href="/assets/r3f-BffiVwpA.js">
     <link rel="modulepreload" crossorigin href="/assets/gsap-ClrJoWE3.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-BsSw5shH.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-D9Zsofgo.css">
   </head>
   <body>
     <div id="root"></div>
